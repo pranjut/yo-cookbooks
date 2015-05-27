@@ -1,0 +1,72 @@
+akka {
+        loglevel = DEBUG,
+        log-config-on-start = off,
+        actor {
+            provider = "akka.remote.RemoteActorRefProvider"
+        }
+        remote {
+            enabled-transports = ["akka.remote.netty.tcp"]
+        netty.tcp {
+            hostname = "127.0.0.1"
+            port = 2555
+        }
+    },
+    debug{
+        lifecycle = on
+    }
+}
+
+#zencoder api key and job submission url
+proversity.zencoder.api.key="<%= @zencoderApiKey%>"
+proversity.zencoder.api.url="<%=@zencoderAppUrl%>"
+proversity.zencoder.notification.url ="http://<%= @envName %>.proversity.com/zencn"
+
+#Amazon S3 domain
+proversity.amazon.s3.domain=s3.amazonaws.com
+
+#encodethumbnails only if this property is true
+proversity.encode.thumbnails=true
+
+#profiles for encoding videos
+
+proversity.profiles.encoding.high=true
+proversity.profiles.encoding.main=true
+proversity.profiles.encoding.baseline=true
+proversity.profiles.encoding.baselinelow=true
+proversity.profiles.encoding.3gp=true
+proversity.profiles.encoding.hls=true
+
+
+proversity.encoding.watermark.enable=true
+proversity.encoding.watermark.x=90%
+proversity.encoding.watermark.y=-90%
+proversity.encoding.watermark.height=20
+proversity.encoding.watermark.width=20
+proversity.encoding.watermark.url.small=logo-watermark.png
+proversity.encoding.watermark.url.desktop=logo-watermark-desktop.png
+proversity.encoding.watermark.url.mobile=logo-watermark-mobile.png
+
+
+proversity.cloudfront.canonical.user=<%=@cloudfrontCanonicalUser%>
+
+
+#amazon bucket to upload the
+proversity.s3.bucket.original="<%= @s3BucketOriginal%>"
+proversity.s3.bucket.encoded="<%= @s3BucketEncoded%>"
+proversity.s3.bucket.thumbnails="<%= @s3BucketThumbnails%>"
+proversity.aws.access.key="<%= @awsAccessKey%>"
+proversity.aws.secret.key="<%= @awsSecretKey%>"
+
+#Video Streaming
+proversity.private.key.file="<%= @cloudfrontEncryptionKey%>"
+proversity.streaming.video.distribution="<%= @streamingVideoDistribution%>"
+proversity.download.video.distribution="<%= @downloadVideoDistribution%>"
+proversity.public.key="<%= @publicKey%>"
+proversity.cloudfront.url.expire.minutes=<%=@cloudfrontUrlExpirationPeriod%>
+
+#Actors
+proversity.actor.notificationhandler=Notification_Handler
+proversity.actor.encodingprocessor=Encoding_Processor
+proversity.billing.checkouthandler=Checkout_Handler
+proversity.billing.discounthandler=Discount_Handler
+proversity.actor.system.context=Encoder

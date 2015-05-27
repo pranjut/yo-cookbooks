@@ -1,0 +1,31 @@
+{
+  "name": "application_play2",
+  "description": "Installs/Configures application_play2",
+  "long_description": "Description\n==========================\nThis cookbook is designed to be able to describe and deploy playframework 2 web applications. Application is deployed as a service.\n\nCurrently supported:\n\n* SCM deployment / Play2 dist package deployment\n* External application configuration file\n* External logger file\n* http / https port\n\nNote that this cookbook provides the play2-specific bindings for the `application` cookbook; you will find general documentation in that cookbook.\n\nRequirements\n------------\nChef 0.10.0 or higher required (for Chef environment use).\n\n#### packages\n- `application` - [Opscode application cookbook](https://github.com/opscode-cookbooks/application)\n- `play2` - [play2 cookbook](https://github.com/njin-fr/play2)\n\nAttributes\n----------\n\n#### play2 sub-resource LWRP\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>initd_template</tt></td>\n    <td>String</td>\n    <td>Service script template file</td>\n    <td><tt>nil</tt><br/>(use the cookbook one)</td>\n  </tr>\n  <tr>\n    <td><tt>ivy_credentials</tt></td>\n    <td>String</td>\n    <td>Ivy credentials file</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>application_conf</tt></td>\n    <td>String</td>\n    <td>Application configuration file</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>log_file</tt></td>\n    <td>String</td>\n    <td>Log file</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>http_port</tt></td>\n    <td>Integer</td>\n    <td></td>\n    <td><tt>80</tt></td>\n  </tr>\n  <tr>\n    <td><tt>https_port</tt></td>\n    <td>Integer</td>\n    <td></td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>app_opts</tt></td>\n    <td>String</td>\n    <td>Additional java options</td>\n    <td><tt>nil</tt></td>\n  </tr>\n\n</table>\n\nUsage\n-----\n#### A sample application using zip package distribution (Recommended)\n\n\tapplication \"my_app\" do\n\t\tpath \"/var/www/playapps/#{name}\"\n\t\trepository \"http://my_app.distribution_url.zip\"\n\t\trevision \"1.0.0\"\n\t\tstrategy :dist_remote_file\n\t\n\t\tplay2 do\n\t\t\tivy_credentials \"credentials\"\n\t\t\thttp_port 80\n\t\t\tapplication_conf \"application.conf\"\n\t\t\tlog_file \"logger.xml\"\n\t\t\tapp_opts \"-Xms6144M -Xmx6144M -Xss1M -XX:MaxPermSize=256M\"\n\t\tend\n\tend\n\t\n`credentials`, `application.conf`, `logger.xml` must be in your cookbook files.\n\n#### A sample application using scm provider\n\n\tapplication \"my_app\" do\n\t\tpath \"/var/www/playapps/#{name}\"\n\t\trepository \"git@repo.url.git\"\n\t\trevision \"master\"\n\t\tdeploy_key \"-----BEGIN RSA PRIVATE KEY-----\n\tZO83161L458DqWszVwblp4HValWWUm6382OkaGvVGrwGLNTNcoYeWAP0xvpuDLfi\n\tΓÇªU13bIttKqAmYNMK0o+699VWGDf9uBEfwDgBbrMUt+RchxyM3BA==\n\t-----END RSA PRIVATE KEY-----\n\t\"\n\t\n\t\tplay2 do\n\t\t\tivy_credentials \"credentials\"\n\t\t\thttp_port 80\n\t\t\tapplication_conf \"application.conf\"\n\t\t\tlog_file \"logger.xml\"\n\t\t\tapp_opts \"-Xms6144M -Xmx6144M -Xss1M -XX:MaxPermSize=256M\"\n\t\tend\n\tend\n\nContributing\n------------\nIf your are a ruby guy, please contribute. This cookbook was made by a developer who knows nothing of ruby. You can surely improve the code.\n\nLicense and Authors\n-------------------\nAuthor:: Didier Bathily (<bathily@njin.fr>)\n\nCopyright 2013, njin\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "maintainer": "njin",
+  "maintainer_email": "bathily@njin.fr",
+  "license": "All rights reserved",
+  "platforms": {
+  },
+  "dependencies": {
+    "application": ">= 0.0.0",
+    "play2": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.1"
+}

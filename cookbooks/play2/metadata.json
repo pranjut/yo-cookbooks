@@ -1,0 +1,29 @@
+{
+  "name": "play2",
+  "description": "Installs/Configures playframework 2",
+  "long_description": "play2 Cookbook\n==============\nThis cookbook install [playframework 2](http://www.playframework.com)\n\nAttributes\n----------\n#### play2::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['play2']['version']</tt></td>\n    <td>String</td>\n    <td>The framework version</td>\n    <td><tt>2.1.0</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['play2']['checksum']</tt></td>\n    <td>String</td>\n    <td>Zip checksum</td>\n    <td><tt>0eef88602d26409bb584536cedb585de</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['play2']['url']</tt></td>\n    <td>String</td>\n    <td>The download url part</td>\n    <td><tt>http://downloads.typesafe.com/play/</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['play2']['home']</tt></td>\n    <td>String</td>\n    <td>Installation destination</td>\n    <td><tt>/usr/local/play</tt></td>\n  </tr>\n\n</table>\n\nUsage\n-----\n#### play2::default\nJust include `play2` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[play2]\"\n  ]\n}\n```\n\nLicense and Authors\n-------------------\nAuthor:: Didier Bathily (<bathily@njin.fr>)\n\nCopyright 2013, njin\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "njin",
+  "maintainer_email": "bathily@njin.fr",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

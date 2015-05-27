@@ -1,0 +1,73 @@
+{ "bindings" : [ { "arguments" : {  },
+        "destination" : "prov.requests.rec-engine",
+        "destination_type" : "queue",
+        "routing_key" : "",
+        "source" : "prov.requests",
+        "vhost" : "/"
+      },
+      { "arguments" : {  },
+        "destination" : "prov.search.index",
+        "destination_type" : "queue",
+        "routing_key" : "",
+        "source" : "prov.search",
+        "vhost" : "/"
+      },
+      { "arguments" : {  },
+        "destination" : "prov.search.rec-engine",
+        "destination_type" : "queue",
+        "routing_key" : "",
+        "source" : "prov.search",
+        "vhost" : "/"
+      }
+    ],
+  "exchanges" : [ { "arguments" : {  },
+        "auto_delete" : false,
+        "durable" : true,
+        "internal" : false,
+        "name" : "prov.search",
+        "type" : "topic",
+        "vhost" : "/"
+      },
+      { "arguments" : {  },
+        "auto_delete" : false,
+        "durable" : true,
+        "internal" : false,
+        "name" : "prov.requests",
+        "type" : "direct",
+        "vhost" : "/"
+      }
+    ],
+  "parameters" : [  ],
+  "permissions" : [ { "configure" : ".*",
+        "read" : ".*",
+        "user" : "guest",
+        "vhost" : "/",
+        "write" : ".*"
+      } ],
+  "policies" : [  ],
+  "queues" : [ { "arguments" : {  },
+        "auto_delete" : false,
+        "durable" : true,
+        "name" : "prov.search.rec-engine",
+        "vhost" : "/"
+      },
+      { "arguments" : {  },
+        "auto_delete" : false,
+        "durable" : true,
+        "name" : "prov.requests.rec-engine",
+        "vhost" : "/"
+      },
+      { "arguments" : {  },
+        "auto_delete" : false,
+        "durable" : true,
+        "name" : "prov.search.index",
+        "vhost" : "/"
+      }
+    ],
+  "rabbit_version" : "3.0.4",
+  "users" : [ { "name" : "guest",
+        "password_hash" : "SpGzuHNnuKevILuS0XLMqaJ7suo=",
+        "tags" : "administrator"
+      } ],
+  "vhosts" : [ { "name" : "/" } ]
+}

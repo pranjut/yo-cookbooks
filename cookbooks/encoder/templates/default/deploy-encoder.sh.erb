@@ -1,0 +1,31 @@
+cd <%= @install_dir %>
+
+dir_name="<%=@app_name %>/archives/build$(date +'-%m-%d-%y-%H-%M')"
+
+sudo mkdir $dir_name
+
+sudo mv <%=@app_name %>*.jar $dir_name
+
+sudo wget --auth-no-challenge <%=@rootUrl%><%= @remote_url %>/<%=@app_name%>_<%=@app_version%>-one-jar.jar
+
+sudo mv <%=@app_name%>_<%=@app_version%>-one-jar.jar <%=@app_name%>-<%=@app_version%>.jar
+
+
+output=`ps aux|grep application_<%=@app_name%> | grep -v grep |cut -d' ' -f6`
+echo $output
+if [ ${output:+1} ]
+then
+   echo "About to stop <%=@app_name%> running under pid " $output
+   sudo kill $output
+   sleep 5
+
+   echo "Stopped <%=@app_name%>"
+else
+   echo "<%=@app_name%> is already stopped"
+fi
+echo "Starting Encoder..."
+sudo service <%=@app_name%> start
+
+started_process=`ps aux|grep <%= @app_name %>`
+echo $started_process
+set -- $started_process

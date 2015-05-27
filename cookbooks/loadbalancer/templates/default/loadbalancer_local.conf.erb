@@ -1,0 +1,137 @@
+upstream appcluster {
+    server localhost:9000;
+}
+
+
+server {
+    listen 80;
+
+    server_name load_balancer_test;
+    client_max_body_size 200M;
+    root   <%=@install_dir%>/<%=@appName%>;
+
+    location /handleWebSocketRequest {
+        proxy_pass http://appcluster/handleWebSocketRequest;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 8m;
+    }
+
+    location /v1 {
+        set $cors "false";
+        if ($http_origin ~* (\.proversity\.com)) {
+            set $cors "true";
+        }
+        if ($request_method = 'OPTIONS') {
+            set $cors "${cors}options";
+        }
+
+        if ($request_method = 'GET') {
+            set $cors "${cors}get";
+        }
+        if ($request_method = 'POST') {
+            set $cors "${cors}post";
+        }
+        if ($cors = "true") {
+            # Catch all incase theres a request method were not dealing with properly
+            add_header 'Access-Control-Allow-Origin' "$http_origin";
+
+        }
+        if ($cors = "trueget") {
+            add_header 'Access-Control-Allow-Origin' "$http_origin";
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+	    add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,screencastid,screencastversion,fileName, chapterid,groupsequence, groupid, groupname,username,title';
+            add_header 'Access-Control-Allow-Headers' 'X-PINGOTHER';
+        }
+        if ($cors = "trueoptions") {
+            add_header 'Access-Control-Allow-Origin' "$http_origin";
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+	    add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,screencastid,screencastversion,fileName, chapterid,groupsequence, groupid, groupname,username,title';
+            add_header 'Access-Control-Allow-Headers' 'X-PINGOTHER';
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+        if ($cors = "truepost") {
+            add_header 'Access-Control-Allow-Origin' "$http_origin";
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+	    add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,screencastid,screencastversion,fileName, chapterid,groupsequence, groupid, groupname,username,title';
+	    add_header 'Content-Type' 'multipart/form-data';
+            add_header 'Content-Type' 'application/octet-stream';
+            add_header 'Access-Control-Allow-Headers' 'X-PINGOTHER';
+        }
+        proxy_pass http://appcluster;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        Host $http_host;
+        proxy_read_timeout      8m;
+        proxy_set_header        Access-Control-Allow-Headers X-PINGOTHER;
+        proxy_set_header        Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+        proxy_set_header        'Access-Control-Allow-Origin'  "$http_origin";
+    }
+
+    location /zencn {
+        proxy_pass http://appcluster/zencn;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        Host $http_host;
+        proxy_read_timeout 8m;
+
+    }
+
+    location /upload/file {
+        proxy_pass http://appcluster/upload/file;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        Host $http_host;
+        proxy_read_timeout 8m;
+
+    }
+
+    location /testDrive/ {
+        root   /usr/src;
+        index  index.html index.htm;
+        error_page 405 = $uri;
+        proxy_set_header X-Forwarded-Protocol "http" ;
+    }
+
+
+    location / {
+        root   <%=@install_dir%>/<%=@appName%>;
+        index  index.html index.htm;
+        error_page 405 = $uri;
+        proxy_set_header X-Forwarded-Protocol "http" ;
+        try_files $uri @prerender;
+    }
+
+    location @prerender {
+        proxy_set_header X-Prerender-Token 5RM8OgTVkL7bD30lsIpy;
+
+        set $prerender 0;
+        if ($http_user_agent ~* "baiduspider|twitterbot|facebookexternalhit") {
+            set $prerender 1;
+        }
+        if ($args ~ "_escaped_fragment_") {
+            set $prerender 1;
+        }
+        if ($http_user_agent ~ "Prerender") {
+            set $prerender 0;
+        }
+        if ($uri ~ "\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|doc|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent)") {
+            set $prerender 0;
+        }
+
+        if ($prerender = 1) {
+            rewrite .* /$scheme://<%=@envName%>.proversity.com$request_uri? break;
+            proxy_pass http://service.prerender.io;
+        }
+        if ($prerender = 0) {
+            rewrite .* /index.html break;
+        }
+    }
+}

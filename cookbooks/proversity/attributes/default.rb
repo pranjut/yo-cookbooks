@@ -1,0 +1,6 @@
+default[:proversity][:environment] = "alpha"
+default[:proversity][:install_dir] = "/usr/src"
+default[:proversity][:conf_file] = "/opt/configuration"
+default[:proversity][:appname]="proversity"
+default[:proversity][:searchconfig_path]="/opt/configuration"
+default[:proversity][:pid_file_path]="/var/run/proversity.pid"  
