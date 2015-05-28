@@ -1,5 +1,0 @@
-name             "Loadbalancer"
-maintainer       "Proversity"
-maintainer_email "sameer@proversity.com"
-description      "Sets up the Loadbalancer for Proversity"
-version          "0.0.1"

@@ -1,1 +1,0 @@
-knife ec2 server create --region ap-southeast-1  --availability-zone ap-southeast-1b --node-name $1  --flavor $2 --image ami-b84e04ea --identity-file ~/.ssh/proversity-sing.pem --run-list "role["application"]" --ssh-user ubuntu -A AKIAIY2F7QCG5BQUVTZQ -K 8PuI35QiHxGK06JC38tMtxZRJjO1I4GJj/8wBvnA -S proversity-sing -G proversity -VV -E prod

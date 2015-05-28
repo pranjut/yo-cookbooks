@@ -1,5 +1,0 @@
-default[:massmailer][:environment] = "alpha"
-default[:massmailer][:install_dir] = "/usr/src"
-default[:massmailer][:conf_file] = "/opt/configuration"
-default[:massmailer][:appname]="massmailer"
-default[:massmailer][:pid_file_path]="/var/run/massmailer.pid"  

@@ -1,6 +1,0 @@
-default[:elasticsearch][:install_dir] = "/opt"
-default[:billing][:conf_file] = "/usr/share"
-default[:elasticsearch][:version]="0.90.1"
-default[:elasticsearch][:download_url]="https://download.elasticsearch.org/elasticsearch/elasticsearch/"
-default[:elasticsearch][:appname]="elasticsearch"
-default[:elasticsearch][:mapping_config]="/usr/share"

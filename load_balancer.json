@@ -1,5 +1,0 @@
-{
-    "run_list": ["recipe[apt]","recipe[nginx::source]","recipe[loadbalancer]"]
-}
-
-
